@@ -18,25 +18,29 @@ urlRouter.get('/history', requiredScopes('read:urls'), async (req, res) => {
   });
 });
 
-urlRouter.post('/shorten', requiredScopes('create:urls'), async (req, res) => {
+urlRouter.post('/shorten', requiredScopes('create:urls'), async (req, res, next) => {
   const { originalUrl, shortId } = req.body;
 
-  if (originalUrl) {
-    if (!validateFormat(originalUrl)) {
-      return res.status(400).json({
-        message: 'Either of the urls provided were either malformed.',
+  try {
+    if (originalUrl) {
+      if (!validateFormat(originalUrl)) {
+        return res.status(400).json({
+          message: 'Either of the urls provided were either malformed.',
+        });
+      }
+    } else {
+      res.status(400).json({
+        message: 'Url to shorten was absent in the request.',
       });
     }
-  } else {
-    res.status(400).json({
-      message: 'Url to shorten was absent in the request.',
+    const url = await urlService.createShortUrl(req.username, originalUrl, shortId);
+    res.status(200).json({
+      message: 'Url shortened successfully',
+      shortUrl: `${process.env.TOKEN_AUDIENCE}/${url.shortId}`,
     });
+  } catch (err) {
+    next(err);
   }
-  const url = await urlService.createShortUrl(req.username, originalUrl, shortId);
-  res.status(200).json({
-    message: 'Url shortened successfully',
-    shortUrl: `${process.env.TOKEN_AUDIENCE}/${url.shortId}`,
-  });
 });
 
 urlRouter.get('/:shortId', requiredScopes('read:urls'), async (req, res) => {

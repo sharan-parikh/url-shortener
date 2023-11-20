@@ -35,6 +35,18 @@ export class UrlServiceImpl implements UrlService {
         throw new BadRequestError({ message: MAXIMUM_REQUESTS_REACHED_MESSAGE });
       }
 
+      if (
+        customShortId &&
+        this._urlDao.exists({
+          username: user.username,
+          userId: user.id,
+          originalUrl: originalUrl,
+          shortId: customShortId,
+        })
+      ) {
+        throw new BadRequestError({ message: 'The provided custom short url id already exists.' });
+      }
+
       const shortUrl: ShortUrl = {
         userId: user.id,
         username: user.username,

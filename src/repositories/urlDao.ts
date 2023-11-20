@@ -12,7 +12,12 @@ export class UrlDao implements UrlRepository {
   private _userDao: UserRepository;
 
   async exists(t: ShortUrl): Promise<boolean> {
-    return !!(await UrlModel.findByPk(t.userId));
+    return !!(await UrlModel.findOne({
+      where: {
+        userId: t.userId,
+        shortId: t.shortId,
+      },
+    }));
   }
 
   async delete(t: ShortUrl): Promise<any> {

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { BadRequestError } from '../errors';
 
 export const authErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (err.name === 'UnauthorizedError' || err.name === 'InvalidTokenError') {
@@ -11,8 +12,13 @@ export const authErrorHandler = (err: any, req: Request, res: Response, next: Ne
 
 export const defaultErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
-  res.status(500).json({
-    message: 'Something went wrong.',
-  });
-  next(err);
+  if (err instanceof BadRequestError) {
+    res.status(err.statusCode).json({
+      message: err.message,
+    });
+  } else {
+    res.status(500).json({
+      message: 'Something went wrong.',
+    });
+  }
 };
