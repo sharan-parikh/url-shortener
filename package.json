@@ -21,9 +21,14 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "express-oauth2-jwt-bearer": "^1.6.0",
-    "nanoid": "^5.0.3",
+    "inversify": "^6.0.2",
+    "nanoid": "3.3.4",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^6.34.0",
-    "sequelize-typescript": "^2.1.5"
+    "sequelize-typescript": "^2.1.5",
+    "url-exist": "2.0.2"
   }
 }

@@ -1,5 +1,9 @@
 {
     "include": ["src/**/*"],
+    "ts-node": {
+        // Tell ts-node CLI to install the --loader automatically
+        "esm": true
+    },
     "compilerOptions": {
         "strict": true,
         "strictNullChecks": false,
@@ -7,7 +11,9 @@
         "module": "CommonJS",
         "target": "ES2020",
         "outDir": "dist",
-        "lib": ["ES2020"]
+        "lib": ["ES2020"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
     },
-    "exclude": ["node_modules", "jest.config.ts"],
+    "exclude": ["node_modules", "jest.config.ts", "db_setup.sql"],
 }
