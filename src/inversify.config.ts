@@ -10,9 +10,9 @@ import { db } from './services/RDbConnector';
 import { Sequelize } from 'sequelize-typescript';
 
 const container = new Container();
-container.bind<UserRepository>(TYPES.UserRepository).to(UserDao);
-container.bind<UrlRepository>(TYPES.UrlRepository).to(UrlDao);
-container.bind<UrlService>(TYPES.UrlService).to(UrlServiceImpl);
+container.bind<UserRepository>(TYPES.UserRepository).to(UserDao).inSingletonScope();
+container.bind<UrlRepository>(TYPES.UrlRepository).to(UrlDao).inSingletonScope();
+container.bind<UrlService>(TYPES.UrlService).to(UrlServiceImpl).inSingletonScope();
 container.bind<Sequelize>(TYPES.Sequelize).toConstantValue(db);
 
 export { container };

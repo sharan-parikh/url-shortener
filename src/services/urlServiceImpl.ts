@@ -20,7 +20,11 @@ export class UrlServiceImpl implements UrlService {
   @inject(TYPES.Sequelize)
   private _db: Sequelize;
 
-  async createShortUrl(username: string, originalUrl: string): Promise<ShortUrl> {
+  async createShortUrl(
+    username: string,
+    originalUrl: string,
+    customShortId?: string,
+  ): Promise<ShortUrl> {
     const t = await this._db.transaction({
       isolationLevel: Transaction.ISOLATION_LEVELS.REPEATABLE_READ,
     });
@@ -35,7 +39,7 @@ export class UrlServiceImpl implements UrlService {
         userId: user.id,
         username: user.username,
         originalUrl,
-        shortId: getRandomShortId(),
+        shortId: customShortId || getRandomShortId(),
       };
       const saveUrlModel = await this._urlDao.save(shortUrl);
 
