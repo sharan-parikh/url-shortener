@@ -30,13 +30,7 @@ CREATE TABLE urls (
 	constraint author foreign key(user_id) references users(user_id),
 	constraint uq_original_short_url unique(user_id, short_id)
 );
-
-ALTER TABLE urls 
-ADD CONSTRAINT tier_check
-CHECK (
-	CheckIfUrlCreationAllowed(user_id) = 1
-);
-
+z
 INSERT INTO TIERS(tier_code, tier_name, max_requests_allowed) VALUES ('T1', 'Tier 1', 1000);
 INSERT INTO TIERS(tier_code, tier_name, max_requests_allowed) VALUES ('T2', 'Tier 2', 100);
 INSERT INTO TIERS(tier_code, tier_name, max_requests_allowed) VALUES ('T3', 'Tier 3', 25);

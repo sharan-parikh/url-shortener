@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import { UserModel } from './models/userModel';
 import { UrlModel } from './models/urlModel';
 import { TierModel } from './models/tierModel';
