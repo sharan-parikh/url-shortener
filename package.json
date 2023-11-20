@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "start-pm2": "tsc && npx pm2 start dist/index.js processes.json",
+    "start-pm2": "tsc && pm2 start processes.json",
     "stop-pm2": "npx pm2 stop shorty",
     "build": "tsc",
     "dev": "ts-node src/index.ts",
@@ -30,6 +30,7 @@
     "inversify": "^6.0.2",
     "nanoid": "3.3.4",
     "pg": "^8.11.3",
+    "pm2": "^5.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.34.0",
     "sequelize-typescript": "^2.1.5"

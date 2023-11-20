@@ -1,12 +1,18 @@
 {
     "apps" : [{
-        "name": "shorty",
-        "script": "dist/index.js",
-        "exec_mode": "cluster",
-        "watch": false,
-        "instances": "max",
-        "env_production": {
-          "NODE_ENV": "development"
-        }
-      }]
+      "name": "shorty",
+      "script": "dist/index.js",
+      "instances": 3,
+      "exec_mode": "cluster",
+      "increment_var": "PORT",
+      "autorestart": false,
+      "watch": false,
+      "max_memory_restart": "512M",
+      "error_file": "/logs/errors.txt",
+      "out_file": "/logs/logs.txt",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": 8080
+      }
+    }]
 }
