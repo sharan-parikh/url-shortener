@@ -11,5 +11,12 @@ export const db = new Sequelize({
   define: {
     createdAt: false,
     updatedAt: false,
+    timestamps: false,
   },
+  pool: {
+    max: Number(process.env.DATABASE_POOL_MAX_CONNECTIONS),
+    acquire: Number(process.env.DATABASE_POOL_ACQUIRE_TIME),
+    idle: Number(process.env.DATABASE_POOL_IDLE_TIME),
+  },
+  logging: false,
 });

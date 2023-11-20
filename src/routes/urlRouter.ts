@@ -1,6 +1,5 @@
 import express from 'express';
 import { validateFormat } from '../utils/urlUtils';
-import urlExist from 'url-exist';
 import { container } from '../inversify.config';
 import { UrlServiceImpl } from '../services/urlServiceImpl';
 import TYPES from '../types';
@@ -9,13 +8,17 @@ import { requiredScopes } from 'express-oauth2-jwt-bearer';
 export const urlRouter = express.Router();
 const urlService = container.get<UrlServiceImpl>(TYPES.UrlService);
 
-urlRouter.get('/history', requiredScopes('read:urls'), async (req, res) => {
-  const urls = await urlService.getHistory(req.username);
+urlRouter.get('/history', requiredScopes('read:urls'), async (req, res, next) => {
+  try {
+    const urls = await urlService.getHistory(req.username);
 
-  res.status(200).json({
-    message: 'Url history successfully fetched.',
-    urls: urls.map(url => url.originalUrl),
-  });
+    res.status(200).json({
+      message: 'Url history successfully fetched.',
+      urls: urls.map(url => url.originalUrl),
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 urlRouter.post('/shorten', requiredScopes('create:urls'), async (req, res, next) => {
@@ -43,9 +46,12 @@ urlRouter.post('/shorten', requiredScopes('create:urls'), async (req, res, next)
   }
 });
 
-urlRouter.get('/:shortId', requiredScopes('read:urls'), async (req, res) => {
-  const shortId: string = req.params.shortId;
-
-  const url = await urlService.getUrl(req.username, shortId, true);
-  res.redirect(url.originalUrl);
+urlRouter.get('/:shortId', requiredScopes('read:urls'), async (req, res, next) => {
+  try {
+    const shortId: string = req.params.shortId;
+    const url = await urlService.getUrl(req.username, shortId, true);
+    res.redirect(url.originalUrl);
+  } catch (err) {
+    next(err);
+  }
 });

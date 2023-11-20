@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+        "name": "shorty",
+        "script": "dist/index.js",
+        "exec_mode": "cluster",
+        "watch": false,
+        "instances": "max",
+        "env_production": {
+          "NODE_ENV": "development"
+        }
+      }]
+}

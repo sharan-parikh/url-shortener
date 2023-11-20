@@ -4,7 +4,11 @@
   "description": "A URL shortener application created using NodeJS, Express and PostgreSQL",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "tsc && node dist/index.js",
+    "start-pm2": "tsc && npx pm2 start dist/index.js processes.json",
+    "stop-pm2": "npx pm2 stop shorty",
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -28,7 +32,6 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.34.0",
-    "sequelize-typescript": "^2.1.5",
-    "url-exist": "2.0.2"
+    "sequelize-typescript": "^2.1.5"
   }
 }
