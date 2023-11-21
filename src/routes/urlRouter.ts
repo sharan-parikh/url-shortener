@@ -28,7 +28,7 @@ urlRouter.post('/shorten', requiredScopes('create:urls'), async (req, res, next)
     if (originalUrl) {
       if (!validateFormat(originalUrl)) {
         return res.status(400).json({
-          message: 'Either of the urls provided were either malformed.',
+          message: 'Any one or both the urls provided are malformed.',
         });
       }
     } else {
