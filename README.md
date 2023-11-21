@@ -4,13 +4,13 @@
 
 A simple API Server built using Express, Typescript and PostgresSQL that exposes the following APIs:
 
-1. /url/shorten - shortens a long url into a short one. User can also supply custom domain if random
+1. **/url/shorten** - shortens a long url into a short one. User can also supply custom domain if random
    ending is not needed.
-2. /url/history - returns all the urls shortened by the user.
-3. /url/:shortId - redirects the users to the original url.
+2. **/url/history** - returns all the urls shortened by the user.
+3. **/url/:shortId** - redirects the users to the original url.
 
 Each of the above mentioned routes are protected using **express-oauth2-jwt-bearer** framework
-provided by **Auth0** and hence a valid toke is needed for accessing any of the routes. This project
+provided by **Auth0** and hence a valid token is needed for accessing any of the routes. This project
 is simple yet elegant as all the SOLID principles were enforced including best practices like
 IoC(Inversion of Control) and using interfaces as much as possible so that unit testing and
 refactoring is a breeze.
